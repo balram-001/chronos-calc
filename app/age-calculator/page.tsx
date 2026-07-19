@@ -94,9 +94,9 @@ export default function AgeCalculatorPage() {
                   <button type="submit" className="bg-[#5c940d] text-white font-black py-3 px-6 rounded-xl mt-2 text-xs uppercase tracking-widest">Run Calculation</button>
                   {error && <p role="alert" className="text-sm font-bold text-red-600">{error}</p>}
                   {ageResult && (
-                    <div className="mt-6 p-4 bg-[#f8faf6] dark:bg-slate-900/50 rounded-xl border border-green-100">
+                    <div className={`mt-6 p-5 rounded-xl border ${darkMode ? "bg-slate-900/50 border-slate-700" : "bg-[#f8faf6] border-green-100"}`}>
                       <p className="text-lg font-black text-[#5c940d]">{ageResult.years}y {ageResult.months}m {ageResult.days}d</p>
-                      <p className="text-[10px] text-gray-400 mt-1 uppercase font-bold">Lived: {ageResult.totalDays.toLocaleString()} Days</p>
+                      <p className={`text-[10px] mt-1 uppercase font-bold ${darkMode ? "text-slate-300" : "text-slate-500"}`}>Lived: {ageResult.totalDays.toLocaleString()} Days</p>
                     </div>
                   )}
                 </form>

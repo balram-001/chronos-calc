@@ -69,7 +69,7 @@ export default function BabyTrackerPage() {
                   <button type="submit" className="bg-[#5c940d] text-white font-black py-3 px-6 rounded-xl mt-2 text-xs uppercase tracking-widest">Scan Milestones</button>
                   {error && <p role="alert" className="text-sm font-bold text-red-600">{error}</p>}
                   {babyResult && (
-                    <div className="mt-4 p-5 bg-yellow-50 dark:bg-slate-900/50 rounded-xl text-center border border-yellow-100">
+                    <div className={`mt-4 p-5 rounded-xl text-center border ${darkMode ? "bg-slate-900/50 border-slate-700" : "bg-yellow-50 border-yellow-100"}`}>
                       <span className="text-sm font-black text-yellow-700 uppercase tracking-tighter">👶 {babyResult.weeks} Weeks & {babyResult.days} Days Old</span>
                     </div>
                   )}

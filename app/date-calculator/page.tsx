@@ -61,7 +61,7 @@ export default function DateCalculatorPage() {
                   </div>
                   <button type="submit" className="bg-[#5c940d] text-white font-black py-3 px-6 rounded-xl mt-2 text-xs uppercase tracking-widest">Check Variance</button>
                   {error && <p role="alert" className="text-sm font-bold text-red-600">{error}</p>}
-                  {dateResult !== null && <div className="mt-4 p-4 bg-blue-50 dark:bg-slate-900/50 rounded-lg text-center font-black text-xl text-[#3b6e9c]">{dateResult} Days Variance</div>}
+                  {dateResult !== null && <div className={`mt-4 p-5 rounded-xl border text-center font-black text-xl text-[#3b6e9c] ${darkMode ? "bg-slate-900/50 border-slate-700" : "bg-blue-50 border-blue-100"}`}>{dateResult} Days Variance</div>}
                 </form>
               </div>
             </div>

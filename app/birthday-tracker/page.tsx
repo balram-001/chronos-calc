@@ -53,7 +53,7 @@ export default function BirthdayTrackerPage() {
                   </div></div>
                   <button type="submit" className="bg-[#5c940d] text-white font-black py-3 px-6 rounded-xl text-xs uppercase tracking-widest">Start Countdown</button>
                   {error && <p role="alert" className="text-sm font-bold text-red-600">{error}</p>}
-                  {bdayResult && <div className="mt-4 p-5 bg-red-50 dark:bg-slate-900/50 rounded-xl text-center border border-red-100"><span className="text-sm font-black text-red-600 uppercase tracking-tighter">{bdayResult.days} days until your birthday 🎂</span><p className="mt-1 text-xs text-red-500">{bdayResult.date.toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" })}</p></div>}
+                  {bdayResult && <div className={`mt-4 p-5 rounded-xl text-center border ${darkMode ? "bg-slate-900/50 border-slate-700" : "bg-red-50 border-red-100"}`}><span className="text-sm font-black text-red-600 uppercase tracking-tighter">{bdayResult.days} days until your birthday 🎂</span><p className={`mt-1 text-xs ${darkMode ? "text-slate-300" : "text-red-500"}`}>{bdayResult.date.toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" })}</p></div>}
                 </form>
               </div>
             </div>

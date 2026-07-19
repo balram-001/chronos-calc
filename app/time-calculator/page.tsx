@@ -47,7 +47,7 @@ export default function TimeCalculatorPage() {
                     </div></div>
                   </div>
                   <button type="submit" className="bg-[#5c940d] text-white font-black py-3 px-6 rounded-xl text-xs uppercase tracking-widest">Analyze Gap</button>
-                  {timeResult && <div className="mt-4 p-4 bg-green-50 dark:bg-slate-900/50 text-center text-base font-black uppercase text-[#5c940d]">{timeResult}</div>}
+                  {timeResult && <div className={`mt-4 p-5 rounded-xl border text-center text-base font-black uppercase text-[#5c940d] ${darkMode ? "bg-slate-900/50 border-slate-700" : "bg-green-50 border-green-100"}`}>{timeResult}</div>}
                 </form>
               </div>
             </div>

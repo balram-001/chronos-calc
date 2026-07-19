@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "chronos-calc",
-  description: "Precision Calculation Hub",
+  description: "Calculate exact chronological age, absolute day variance, time duration gaps, birthday countdowns, and track baby growth indexes with precision metrics.",
   icons: {
-    icon: "/logo.png", // Ye Google ko aapka logo batayega
+    icon: "/logo.png",
   },
 };
 

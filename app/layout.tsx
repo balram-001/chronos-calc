@@ -18,6 +18,9 @@ export const metadata = {
   icons: {
     icon: "/logo.png",
   },
+  verification: {
+    google: "LszHai97qEfh9K7c6xRrjjGcBsOwQbIrGzQhwEYWOOo",
+  },
 };
 
 export default function RootLayout({

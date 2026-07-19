@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useDarkMode } from "../hooks/use-dark-mode";
+import { dateFromParts, differenceInCalendarDays, isValidDate } from "../lib/date-utils";
 
 export default function DateCalculatorPage() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   const monthsMap: { [key: string]: number } = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
   const months = Object.keys(monthsMap);
@@ -14,12 +16,17 @@ export default function DateCalculatorPage() {
   const [startDMonth, setStartDMonth] = useState("Jul"); const [startDDay, setStartDDay] = useState("16"); const [startDYear, setStartDYear] = useState("2026");
   const [endDMonth, setEndDMonth] = useState("Jul"); const [endDDay, setEndDDay] = useState("19"); const [endDYear, setEndDYear] = useState("2026");
   const [dateResult, setDateResult] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleDateCalculate = (e: any) => { 
+  const handleDateCalculate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
-    const start = new Date(Number(startDYear), monthsMap[startDMonth], Number(startDDay)); 
-    const end = new Date(Number(endDYear), monthsMap[endDMonth], Number(endDDay)); 
-    setDateResult(Math.ceil(Math.abs(end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))); 
+    const start = dateFromParts(Number(startDYear), monthsMap[startDMonth], Number(startDDay));
+    const end = dateFromParts(Number(endDYear), monthsMap[endDMonth], Number(endDDay));
+    if (!isValidDate(Number(startDYear), monthsMap[startDMonth], Number(startDDay)) || !isValidDate(Number(endDYear), monthsMap[endDMonth], Number(endDDay))) {
+      setDateResult(null); setError("Please select valid calendar dates."); return;
+    }
+    setError(null);
+    setDateResult(Math.abs(differenceInCalendarDays(end, start)));
   };
 
   return (
@@ -28,7 +35,7 @@ export default function DateCalculatorPage() {
         <div className="w-full max-w-[1050px] flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3"><img src="/logo.png" alt="logo" className="h-9 w-auto object-contain rounded-md" /><span className={`text-xl font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>chronos-calc</span></Link>
           <div className="flex items-center gap-4">
-            <button onClick={() => setDarkMode(!darkMode)} className={`px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-wider ${darkMode ? "border-slate-600 bg-slate-700 text-yellow-400" : "border-gray-200 bg-gray-50 text-slate-700 shadow-sm"}`}>{darkMode ? "☀️ Light" : "🌙 Dark"}</button>
+            <button onClick={toggleDarkMode} aria-label="Toggle color theme" className={`px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-wider ${darkMode ? "border-slate-600 bg-slate-700 text-yellow-400" : "border-gray-200 bg-gray-50 text-slate-700 shadow-sm"}`}>{darkMode ? "☀️ Light" : "🌙 Dark"}</button>
           </div>
         </div>
       </header>
@@ -53,6 +60,7 @@ export default function DateCalculatorPage() {
                     </div></div>
                   </div>
                   <button type="submit" className="bg-[#5c940d] text-white font-black py-3 px-6 rounded-xl mt-2 text-xs uppercase tracking-widest">Check Variance</button>
+                  {error && <p role="alert" className="text-sm font-bold text-red-600">{error}</p>}
                   {dateResult !== null && <div className="mt-4 p-4 bg-blue-50 dark:bg-slate-900/50 rounded-lg text-center font-black text-xl text-[#3b6e9c]">{dateResult} Days Variance</div>}
                 </form>
               </div>

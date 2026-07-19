@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useDarkMode } from "../hooks/use-dark-mode";
+import { dateFromParts, differenceInCalendarDays, isValidDate } from "../lib/date-utils";
 
 export default function BabyTrackerPage() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   const monthsMap: { [key: string]: number } = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
   const months = Object.keys(monthsMap);
@@ -14,13 +16,21 @@ export default function BabyTrackerPage() {
   const [babyMonth, setBabyMonth] = useState("Jan"); 
   const [babyDay, setBabyDay] = useState("01"); 
   const [babyYear, setBabyYear] = useState("2026");
-  const [babyResult, setBabyResult] = useState<any>(null);
+  const [babyResult, setBabyResult] = useState<{ weeks: number; days: number } | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleBabyCalculate = (e: any) => { 
+  const handleBabyCalculate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
-    const born = new Date(Number(babyYear), monthsMap[babyMonth], Number(babyDay)); 
-    const today = new Date(2026, 6, 19); 
-    const diffDays = Math.floor((today.getTime() - born.getTime()) / (1000 * 60 * 60 * 24)); 
+    const born = dateFromParts(Number(babyYear), monthsMap[babyMonth], Number(babyDay));
+    const today = new Date();
+    if (!isValidDate(Number(babyYear), monthsMap[babyMonth], Number(babyDay))) {
+      setBabyResult(null); setError("Please select a valid birth date."); return;
+    }
+    if (born > today) {
+      setBabyResult(null); setError("Birth date cannot be in the future."); return;
+    }
+    setError(null);
+    const diffDays = differenceInCalendarDays(today, born);
     setBabyResult({ 
       weeks: Math.floor(diffDays / 7), 
       days: diffDays % 7 
@@ -36,7 +46,7 @@ export default function BabyTrackerPage() {
             <span className={`text-xl font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>chronos-calc</span>
           </Link>
           <div className="flex items-center gap-4">
-            <button onClick={() => setDarkMode(!darkMode)} className={`px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-wider ${darkMode ? "border-slate-600 bg-slate-700 text-yellow-400" : "border-gray-200 bg-gray-50 text-slate-700 shadow-sm"}`}>{darkMode ? "☀️ Light" : "🌙 Dark"}</button>
+            <button onClick={toggleDarkMode} aria-label="Toggle color theme" className={`px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-wider ${darkMode ? "border-slate-600 bg-slate-700 text-yellow-400" : "border-gray-200 bg-gray-50 text-slate-700 shadow-sm"}`}>{darkMode ? "☀️ Light" : "🌙 Dark"}</button>
           </div>
         </div>
       </header>
@@ -57,6 +67,7 @@ export default function BabyTrackerPage() {
                     </div>
                   </div>
                   <button type="submit" className="bg-[#5c940d] text-white font-black py-3 px-6 rounded-xl mt-2 text-xs uppercase tracking-widest">Scan Milestones</button>
+                  {error && <p role="alert" className="text-sm font-bold text-red-600">{error}</p>}
                   {babyResult && (
                     <div className="mt-4 p-5 bg-yellow-50 dark:bg-slate-900/50 rounded-xl text-center border border-yellow-100">
                       <span className="text-sm font-black text-yellow-700 uppercase tracking-tighter">👶 {babyResult.weeks} Weeks & {babyResult.days} Days Old</span>

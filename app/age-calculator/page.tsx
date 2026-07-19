@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useDarkMode } from "../hooks/use-dark-mode";
+import { dateFromParts, differenceInCalendarDays, isValidDate } from "../lib/date-utils";
 
 export default function AgeCalculatorPage() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   const monthsMap: { [key: string]: number } = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
   const months = Object.keys(monthsMap);
@@ -17,12 +19,20 @@ export default function AgeCalculatorPage() {
   const [targetMonth, setTargetMonth] = useState("Jul"); 
   const [targetDay, setTargetDay] = useState("19"); 
   const [targetYear, setTargetYear] = useState("2026");
-  const [ageResult, setAgeResult] = useState<any>(null);
+  const [ageResult, setAgeResult] = useState<{ years: number; months: number; days: number; totalDays: number } | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleAgeCalculate = (e: any) => { 
+  const handleAgeCalculate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
-    const dob = new Date(Number(birthYear), monthsMap[birthMonth], Number(birthDay)); 
-    const target = new Date(Number(targetYear), monthsMap[targetMonth], Number(targetDay)); 
+    const dob = dateFromParts(Number(birthYear), monthsMap[birthMonth], Number(birthDay));
+    const target = dateFromParts(Number(targetYear), monthsMap[targetMonth], Number(targetDay));
+    if (!isValidDate(Number(birthYear), monthsMap[birthMonth], Number(birthDay)) || !isValidDate(Number(targetYear), monthsMap[targetMonth], Number(targetDay))) {
+      setAgeResult(null); setError("Please select valid calendar dates."); return;
+    }
+    if (target < dob) {
+      setAgeResult(null); setError("Target date cannot be before the birth date."); return;
+    }
+    setError(null);
     let y = target.getFullYear() - dob.getFullYear(); 
     let m = target.getMonth() - dob.getMonth(); 
     let d = target.getDate() - dob.getDate(); 
@@ -38,7 +48,7 @@ export default function AgeCalculatorPage() {
       years: y, 
       months: m, 
       days: d, 
-      totalDays: Math.floor((target.getTime() - dob.getTime()) / (1000 * 60 * 60 * 24)) 
+      totalDays: differenceInCalendarDays(target, dob)
     }); 
   };
 
@@ -51,7 +61,7 @@ export default function AgeCalculatorPage() {
             <span className={`text-xl font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>chronos-calc</span>
           </Link>
           <div className="flex items-center gap-4">
-            <button onClick={() => setDarkMode(!darkMode)} className={`px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-wider ${darkMode ? "border-slate-600 bg-slate-700 text-yellow-400" : "border-gray-200 bg-gray-50 text-slate-700 shadow-sm"}`}>
+            <button onClick={toggleDarkMode} aria-label="Toggle color theme" className={`px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-wider ${darkMode ? "border-slate-600 bg-slate-700 text-yellow-400" : "border-gray-200 bg-gray-50 text-slate-700 shadow-sm"}`}>
               {darkMode ? "☀️ Light" : "🌙 Dark"}
             </button>
           </div>
@@ -82,6 +92,7 @@ export default function AgeCalculatorPage() {
                     </div>
                   </div>
                   <button type="submit" className="bg-[#5c940d] text-white font-black py-3 px-6 rounded-xl mt-2 text-xs uppercase tracking-widest">Run Calculation</button>
+                  {error && <p role="alert" className="text-sm font-bold text-red-600">{error}</p>}
                   {ageResult && (
                     <div className="mt-6 p-4 bg-[#f8faf6] dark:bg-slate-900/50 rounded-xl border border-green-100">
                       <p className="text-lg font-black text-[#5c940d]">{ageResult.years}y {ageResult.months}m {ageResult.days}d</p>

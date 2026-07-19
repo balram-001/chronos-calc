@@ -1,26 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
+import { useDarkMode } from "./hooks/use-dark-mode";
 
-export default function ChronosCalcHub() {
-  const [darkMode, setDarkMode] = useState(false);
+type ToolCardProps = { title: string; icon: string; href: string; desc: string; darkMode: boolean };
 
-  // --- COMPACT HUB CARD WITH NEXT.JS LINK ---
-  const ToolCard = ({ title, icon, href, desc }: { title: string; icon: string; href: string; desc: string }) => (
-    <Link 
+function ToolCard({ title, icon, href, desc, darkMode }: ToolCardProps) {
+  return (
+    <Link
       href={href}
       className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer group hover:shadow-lg hover:-translate-y-1 flex flex-col items-center text-center gap-3 ${darkMode ? "bg-slate-800 border-slate-700 hover:bg-slate-750" : "bg-white border-gray-100 shadow-sm hover:border-[#3b6e9c]"}`}
     >
-      <div className="w-12 h-12 bg-[#3b6e9c] text-white rounded-full flex items-center justify-center text-2xl shadow-md group-hover:scale-110 transition-transform">
-        {icon}
-      </div>
-      <div>
-        <h3 className="font-bold text-base mb-1">{title}</h3>
-        <p className="text-[11px] text-gray-500 leading-tight line-clamp-2">{desc}</p>
-      </div>
+      <div className="w-12 h-12 bg-[#3b6e9c] text-white rounded-full flex items-center justify-center text-2xl shadow-md group-hover:scale-110 transition-transform">{icon}</div>
+      <div><h3 className="font-bold text-base mb-1">{title}</h3><p className="text-[11px] text-gray-500 leading-tight line-clamp-2">{desc}</p></div>
     </Link>
   );
+}
+
+export default function ChronosCalcHub() {
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   return (
     <div className={`w-full min-h-screen flex flex-col transition-colors duration-300 ${darkMode ? "bg-slate-900 text-slate-100" : "bg-[#f8fafc] text-[#333]"}`}>
@@ -40,7 +39,7 @@ export default function ChronosCalcHub() {
           </div>
 
           <div className="flex items-center gap-4">
-            <button onClick={() => setDarkMode(!darkMode)} className={`px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-wider ${darkMode ? "border-slate-600 bg-slate-700 text-yellow-400" : "border-gray-200 bg-gray-50 text-slate-700 shadow-sm"}`}>
+            <button onClick={toggleDarkMode} aria-label="Toggle color theme" className={`px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-wider ${darkMode ? "border-slate-600 bg-slate-700 text-yellow-400" : "border-gray-200 bg-gray-50 text-slate-700 shadow-sm"}`}>
               {darkMode ? "☀️ Light" : "🌙 Dark"}
             </button>
           </div>
@@ -56,11 +55,11 @@ export default function ChronosCalcHub() {
           </div>
           
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-[900px] mx-auto">
-            <ToolCard title="Age Calculator" icon="📅" href="/age-calculator" desc="Determine exact chronological age matrices." />
-            <ToolCard title="Date Calculator" icon="📆" href="/date-calculator" desc="Calculate absolute day variance between dates." />
-            <ToolCard title="Time Calculator" icon="⏱️" href="/time-calculator" desc="Evaluate precise time duration gaps." />
-            <ToolCard title="Birthday Tracker" icon="🎂" href="/birthday-tracker" desc="Countdown to your next big milestone." />
-            <ToolCard title="Baby Tracker" icon="👶" href="/baby-tracker" desc="Track infant milestones in weeks and days." />
+            <ToolCard title="Age Calculator" icon="📅" href="/age-calculator" desc="Determine exact chronological age matrices." darkMode={darkMode} />
+            <ToolCard title="Date Calculator" icon="📆" href="/date-calculator" desc="Calculate absolute day variance between dates." darkMode={darkMode} />
+            <ToolCard title="Time Calculator" icon="⏱️" href="/time-calculator" desc="Evaluate precise time duration gaps." darkMode={darkMode} />
+            <ToolCard title="Birthday Tracker" icon="🎂" href="/birthday-tracker" desc="Countdown to your next big milestone." darkMode={darkMode} />
+            <ToolCard title="Baby Tracker" icon="👶" href="/baby-tracker" desc="Track infant milestones in weeks and days." darkMode={darkMode} />
           </div>
         </div>
       </div>

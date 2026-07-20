@@ -40,19 +40,37 @@ export default function ChronosCalcHub() {
 
   return (
     <div className={`w-full min-h-screen flex flex-col transition-colors duration-300 ${darkMode ? "bg-slate-900 text-slate-100" : "bg-[#f8fafc] text-[#333]"}`}>
-      <header className={`w-full border-b py-3 px-6 flex justify-center sticky top-0 z-50 ${darkMode ? "bg-slate-800 border-slate-700 shadow-md" : "bg-white border-gray-200 shadow-sm"}`}>
-        <div className="w-full max-w-[1050px] flex items-center justify-between">
-          <div className="flex items-center gap-3">
+      
+      {/* Re-engineered Centered Navbar Engine */}
+      <header className={`w-full border-b py-4 px-6 flex justify-center sticky top-0 z-50 ${darkMode ? "bg-slate-800 border-slate-700 shadow-md" : "bg-white border-gray-200 shadow-sm"}`}>
+        <div className="w-full max-w-[1050px] flex flex-col sm:flex-row items-center justify-between gap-4">
+          
+          {/* Left Element: About Page link */}
+          <div className="w-full sm:w-auto flex justify-start order-2 sm:order-1">
+            <Link href="/about" className={`text-xs font-black uppercase tracking-widest transition-colors ${darkMode ? "text-gray-300 hover:text-white" : "text-gray-500 hover:text-[#3b6e9c]"}`}>
+              About
+            </Link>
+          </div>
+
+          {/* Center Element: Absolute Centered Branding Node */}
+          <div className="flex items-center gap-3 order-1 sm:order-2">
             <img src="/icon.png" alt="logo" className="h-9 w-9 rounded-full object-cover border border-gray-200 shadow-sm flex-shrink-0" />
-            <span className={`text-xl font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>chronos-calc</span>
+            <span className={`text-xl font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>
+              chronos-calc
+            </span>
           </div>
-          <div className="flex items-center gap-5">
-            <Link href="/about" className={`text-xs font-black uppercase tracking-widest transition-colors ${darkMode ? "text-gray-300 hover:text-white" : "text-gray-500 hover:text-[#3b6e9c]"}`}>About</Link>
-            <button onClick={toggleDarkMode} className={`px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-wider ${darkMode ? "border-slate-600 bg-slate-700 text-yellow-400" : "border-gray-200 bg-gray-50 text-slate-700 shadow-sm"}`}>{darkMode ? "☀️ Light" : "🌙 Dark"}</button>
+
+          {/* Right Element: High Contrast Utilities Switcher */}
+          <div className="w-full sm:w-auto flex justify-end order-3">
+            <button onClick={toggleDarkMode} className={`px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-wider transition-all ${darkMode ? "border-slate-600 bg-slate-700 text-yellow-400" : "border-gray-200 bg-gray-50 text-slate-700 shadow-sm"}`}>
+              {darkMode ? "☀️ Light" : "🌙 Dark"}
+            </button>
           </div>
+
         </div>
       </header>
 
+      {/* Main Content Body */}
       <div className="w-full max-w-[1050px] mx-auto px-6 pt-8 pb-20 flex-1 flex flex-col justify-center">
         <div className="animate-in fade-in duration-700">
           <div className="text-center mb-6">

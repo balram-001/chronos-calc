@@ -18,15 +18,26 @@ export default function EmiCalculator() {
   const totalPayment = emi * n;
   const totalInterest = totalPayment - P;
 
+  const saveTabPreference = () => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("chronos_active_tab", "finance");
+    }
+  };
+
   return (
     <div className={`w-full min-h-screen flex flex-col transition-colors duration-300 ${darkMode ? "bg-slate-900 text-slate-100" : "bg-[#f8fafc] text-[#333]"}`}>
+      
+      {/* Dynamic Responsive Navigation with Home Icon */}
       <header className={`w-full border-b py-3 px-4 flex justify-center sticky top-0 z-50 ${darkMode ? "bg-slate-800 border-slate-700 shadow-md" : "bg-white border-gray-200 shadow-sm"}`}>
         <div className="w-full max-w-[1050px] flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <img src="/icon.png" alt="logo" className="h-8 w-8 rounded-full object-cover" />
-            <span className={`text-base font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>chronos-calc</span>
+          <Link href="/" onClick={saveTabPreference} className={`text-base font-black p-2 rounded-xl border transition-all ${darkMode ? "text-sky-400 border-slate-700 hover:bg-slate-700 hover:text-white" : "text-[#2b5880] border-gray-100 hover:bg-gray-50"}`} aria-label="Go to Home">
+            🏠
           </Link>
-          <Link href="/" className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md border ${darkMode ? "text-gray-400 border-slate-700 hover:text-white" : "text-gray-500 border-gray-100"}`}>← Hub</Link>
+          <div className="flex items-center gap-2">
+            <img src="/icon.png" alt="logo" className="h-8 w-8 rounded-full object-cover shadow-sm" />
+            <span className={`text-base font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>chronos-calc</span>
+          </div>
+          <div className="w-8"></div>
         </div>
       </header>
 
@@ -50,7 +61,7 @@ export default function EmiCalculator() {
 
           <div className="grid grid-cols-3 gap-2 mt-6 pt-5 border-t border-gray-100 dark:border-slate-700 text-center">
             <div className={`p-2 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}><span className="text-[9px] uppercase font-black text-gray-400 block">Monthly EMI</span><span className="text-xs font-black text-amber-500">₹{Math.round(emi).toLocaleString("en-IN")}</span></div>
-            <div className={`p-2 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}><span className="text-[9px] uppercase font-black text-gray-400 block">Interest</span><span className="text-xs font-black">₹{Math.round(totalInterest).toLocaleString("en-IN")}</span></div>
+            <div className={`p-2 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}><span className="text-[9px] uppercase font-black text-gray-400 block">Interest</span><span className={`text-xs font-black ${darkMode ? "text-slate-100" : "text-slate-900"}`}>₹{Math.round(totalInterest).toLocaleString("en-IN")}</span></div>
             <div className={`p-2 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}><span className="text-[9px] uppercase font-black text-gray-400 block">Payable</span><span className="text-xs font-black text-[#3b6e9c]">₹{Math.round(totalPayment).toLocaleString("en-IN")}</span></div>
           </div>
         </div>

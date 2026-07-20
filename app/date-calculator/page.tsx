@@ -54,8 +54,8 @@ export default function DateCalculatorPage() {
       </header>
 
       <div className="w-full max-w-[1050px] mx-auto px-6 pt-8 pb-20 flex-1">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-          <div className="lg:col-span-2 flex flex-col gap-6">
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6">
             <div className={`border rounded-2xl shadow-xl overflow-hidden ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
               <div className="bg-[#3b6e9c] text-white text-[10px] font-black py-2 px-4 text-center uppercase tracking-[0.2em]">Engine: Date Calculator Engine v1.0</div>
               <div className="p-6 sm:p-8">
@@ -80,17 +80,6 @@ export default function DateCalculatorPage() {
             </div>
           </div>
 
-          <div className={`border rounded-2xl p-4 shadow-sm flex flex-col gap-3 h-fit ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
-             <Link href="/" className="text-left text-[9px] font-black text-[#3b6e9c] mb-1 uppercase tracking-widest">← HUB DASHBOARD</Link>
-             <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] border-b pb-2">Other Tools</h4>
-             <ul className="flex flex-col gap-1.5 text-[10px] font-black uppercase text-gray-400">
-               <Link href="/age-calculator" className="px-3 py-2 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-lg block">Age Calculator</Link>
-               <Link href="/baby-tracker" className="px-3 py-2 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-lg block">Baby Tracker</Link>
-               <li className="px-3 py-2 bg-[#3b6e9c] text-white rounded-lg">Date Calculator</li>
-               <Link href="/time-calculator" className="px-3 py-2 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-lg block">Time Calculator</Link>
-               <Link href="/birthday-tracker" className="px-3 py-2 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-lg block">Birthday Tracker</Link>
-             </ul>
-          </div>
         </div>
       </div>
     </div>

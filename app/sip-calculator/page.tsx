@@ -36,10 +36,10 @@ export default function SipCalculator() {
         </div>
       </header>
 
-      <div className="w-full max-w-[1050px] mx-auto px-4 sm:px-6 pt-8 pb-20 flex-1 flex flex-col md:flex-row gap-6 justify-center items-start">
+      <div className="w-full max-w-[1050px] mx-auto px-4 sm:px-6 pt-8 pb-20 flex-1">
         
         {/* Left Side: Calculator Core Box */}
-        <div className={`w-full md:w-[70%] border rounded-2xl p-5 sm:p-8 shadow-xl ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
+        <div className={`w-full border rounded-2xl p-5 sm:p-8 shadow-xl ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
           <h1 className={`text-xl font-black mb-6 tracking-tight uppercase border-b pb-2 ${darkMode ? "text-white border-slate-700" : "text-[#1e293b] border-gray-100"}`}>SIP Return Estimator</h1>
           
           <div className="flex flex-col gap-5">
@@ -70,19 +70,6 @@ export default function SipCalculator() {
               <span className={`text-[10px] uppercase font-black tracking-wider block mb-1 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>Total Value</span>
               <span className="text-xs sm:text-sm font-black text-[#3b6e9c]">₹{Math.round(totalValue).toLocaleString("en-IN")}</span>
             </div>
-          </div>
-        </div>
-
-        {/* Right Side: FULL 5-ITEMS SIDEBAR MENU SETUP */}
-        <div className={`w-full md:w-[30%] border rounded-2xl p-5 shadow-xl md:sticky md:top-20 ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
-          <Link href="/" onClick={saveTabPreference} className={`text-[11px] font-black uppercase tracking-wider transition-colors block mb-4 ${darkMode ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-[#3b6e9c]"}`}>← Hub Dashboard</Link>
-          <h2 className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3 border-b pb-1">Finance Tools</h2>
-          <div className="flex flex-col gap-2">
-            <div className="w-full p-2.5 rounded-xl text-xs font-black bg-[#3b6e9c] text-white tracking-wide shadow-sm">💰 SIP Calculator</div>
-            <Link href="/emi-calculator" className={`w-full p-2.5 rounded-xl text-xs font-bold transition-all hover:translate-x-1 block ${darkMode ? "bg-slate-900 text-slate-300 hover:bg-slate-750" : "bg-gray-50 text-slate-700 hover:bg-gray-100"}`}>🏦 EMI Calculator</Link>
-            <Link href="/lumpsum-calculator" className={`w-full p-2.5 rounded-xl text-xs font-bold transition-all hover:translate-x-1 block ${darkMode ? "bg-slate-900 text-slate-300 hover:bg-slate-750" : "bg-gray-50 text-slate-700 hover:bg-gray-100"}`}>📈 Lumpsum Calculator</Link>
-            <Link href="/inflation-calculator" className={`w-full p-2.5 rounded-xl text-xs font-bold transition-all hover:translate-x-1 block ${darkMode ? "bg-slate-900 text-slate-300 hover:bg-slate-750" : "bg-gray-50 text-slate-700 hover:bg-gray-100"}`}>📉 Inflation Engine</Link>
-            <Link href="/discount-calculator" className={`w-full p-2.5 rounded-xl text-xs font-bold transition-all hover:translate-x-1 block ${darkMode ? "bg-slate-900 text-slate-300 hover:bg-slate-750" : "bg-gray-50 text-slate-700 hover:bg-gray-100"}`}>📊 Discount Engine</Link>
           </div>
         </div>
 

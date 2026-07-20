@@ -35,8 +35,8 @@ export default function InflationCalculator() {
         </div>
       </header>
 
-      <div className="w-full max-w-[1050px] mx-auto px-4 sm:px-6 pt-8 pb-20 flex-1 flex flex-col md:flex-row gap-6 justify-center items-start">
-        <div className={`w-full md:w-[70%] border rounded-2xl p-5 sm:p-8 shadow-xl ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
+      <div className="w-full max-w-[1050px] mx-auto px-4 sm:px-6 pt-8 pb-20 flex-1">
+        <div className={`w-full border rounded-2xl p-5 sm:p-8 shadow-xl ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
           <h1 className={`text-xl font-black mb-6 tracking-tight uppercase border-b pb-2 ${darkMode ? "text-white border-slate-700" : "text-[#1e293b] border-gray-100"}`}>Inflation Calculator</h1>
           <div className="flex flex-col gap-5">
             <div>
@@ -69,17 +69,6 @@ export default function InflationCalculator() {
           </div>
         </div>
 
-        <div className={`w-full md:w-[30%] border rounded-2xl p-5 shadow-xl md:sticky md:top-20 ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
-          <Link href="/" onClick={saveTabPreference} className={`text-[11px] font-black uppercase tracking-wider transition-colors block mb-4 ${darkMode ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-[#3b6e9c]"}`}>← Hub Dashboard</Link>
-          <h2 className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3 border-b pb-1">Finance Tools</h2>
-          <div className="flex flex-col gap-2">
-            <Link href="/sip-calculator" className={`p-2.5 rounded-xl text-xs font-bold block ${darkMode ? "bg-slate-900 text-slate-300 hover:bg-slate-750" : "bg-gray-50 text-slate-700 hover:bg-gray-100"}`}>💰 SIP Calculator</Link>
-            <Link href="/emi-calculator" className={`p-2.5 rounded-xl text-xs font-bold block ${darkMode ? "bg-slate-900 text-slate-300 hover:bg-slate-750" : "bg-gray-50 text-slate-700 hover:bg-gray-100"}`}>🏦 EMI Calculator</Link>
-            <Link href="/lumpsum-calculator" className={`p-2.5 rounded-xl text-xs font-bold block ${darkMode ? "bg-slate-900 text-slate-300 hover:bg-slate-750" : "bg-gray-50 text-slate-700 hover:bg-gray-100"}`}>📈 Lumpsum Calculator</Link>
-            <div className="p-2.5 rounded-xl text-xs font-black bg-[#3b6e9c] text-white shadow-sm">📉 Inflation Engine</div>
-            <Link href="/discount-calculator" className={`p-2.5 rounded-xl text-xs font-bold block ${darkMode ? "bg-slate-900 text-slate-300 hover:bg-slate-750" : "bg-gray-50 text-slate-700 hover:bg-gray-100"}`}>📊 Discount Engine</Link>
-          </div>
-        </div>
       </div>
     </div>
   );

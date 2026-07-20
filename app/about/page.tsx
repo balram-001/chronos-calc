@@ -16,7 +16,7 @@ export default function AboutPage() {
           {/* Logo & Branding */}
           <Link href="/" className="flex items-center gap-2 min-w-0">
             <img 
-              src="/logo.png" 
+              src="/icon.png"
               alt="logo" 
               className="h-8 w-8 sm:h-9 sm:w-9 object-cover rounded-full border border-gray-200 dark:border-slate-600 shadow-sm flex-shrink-0" 
             />

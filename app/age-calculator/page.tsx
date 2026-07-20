@@ -57,7 +57,7 @@ export default function AgeCalculatorPage() {
       <header className={`w-full border-b py-3 px-6 flex justify-center sticky top-0 z-50 ${darkMode ? "bg-slate-800 border-slate-700 shadow-md" : "bg-white border-gray-200 shadow-sm"}`}>
         <div className="w-full max-w-[1050px] flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <img src="/logo.png" alt="logo" className="h-9 w-9 rounded-full object-cover border border-gray-200 shadow-sm" />
+            <img src="/icon.png" alt="chronos-calc logo" className="h-9 w-9 rounded-full object-cover border border-gray-200 shadow-sm" />
             <span className={`text-xl font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>chronos-calc</span>
           </Link>
           <div className="flex items-center gap-4">

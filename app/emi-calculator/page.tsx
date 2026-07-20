@@ -32,65 +32,64 @@ export default function EmiCalculator() {
             <img src="/icon.png" alt="logo" className="h-8 w-8 rounded-full object-cover border border-gray-200 shadow-sm" />
             <span className={`text-base sm:text-xl font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>chronos-calc</span>
           </Link>
-          <Link href="/" onClick={saveTabPreference} className={`text-[10px] sm:text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-md border ${darkMode ? "text-gray-400 border-slate-700 hover:text-white hover:bg-slate-700" : "text-gray-500 border-gray-100 hover:text-[#3b6e9c] hover:bg-gray-50"}`}>← Hub</Link>
+          <Link href="/" onClick={saveTabPreference} className={`text-[10px] sm:text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-md border ${darkMode ? "text-gray-400 border-slate-700 hover:text-white" : "text-gray-500 border-gray-100 hover:text-[#3b6e9c]"}`}>← Hub</Link>
         </div>
       </header>
 
-      <div className="w-full max-w-[1050px] mx-auto px-4 sm:px-6 pt-8 pb-20 flex-1 flex flex-col justify-center">
-        <div className="max-w-[750px] mx-auto w-full">
-          <h1 className={`text-2xl font-black text-center mb-6 tracking-tight uppercase ${darkMode ? "text-white" : "text-[#1e293b]"}`}>Loan EMI Calculator</h1>
+      {/* Responsive Grid Layout */}
+      <div className="w-full max-w-[1050px] mx-auto px-4 sm:px-6 pt-8 pb-20 flex-1 flex flex-col md:flex-row gap-6 justify-center items-start">
+        
+        {/* Left Side: Calculator Core Box */}
+        <div className={`w-full md:w-[70%] border rounded-2xl p-5 sm:p-8 shadow-xl ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
+          <h1 className={`text-xl font-black mb-6 tracking-tight uppercase border-b pb-2 ${darkMode ? "text-white border-slate-700" : "text-[#1e293b] border-gray-100"}`}>Loan EMI Calculator</h1>
           
-          <div className={`border rounded-2xl p-5 sm:p-8 shadow-xl ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
-            <div className="flex flex-col gap-5">
-              <div>
-                <label className="block text-[11px] font-black uppercase tracking-wider text-gray-400 mb-1">Loan Amount (₹)</label>
-                <input 
-                  type="text" 
-                  inputMode="numeric"
-                  value={loanAmount} 
-                  onChange={(e) => setLoanAmount(e.target.value.replace(/[^0-9]/g, ""))} 
-                  className={`w-full p-2.5 rounded-xl border text-sm font-bold ${darkMode ? "bg-slate-900 border-slate-700 text-white" : "bg-gray-50 border-gray-200"}`} 
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-black uppercase tracking-wider text-gray-400 mb-1">Interest Rate (% p.a.)</label>
-                <input 
-                  type="text" 
-                  inputMode="decimal"
-                  value={interestRate} 
-                  onChange={(e) => setInterestRate(e.target.value.replace(/[^0-9.]/g, ""))} 
-                  className={`w-full p-2.5 rounded-xl border text-sm font-bold ${darkMode ? "bg-slate-900 border-slate-700 text-white" : "bg-gray-50 border-gray-200"}`} 
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-black uppercase tracking-wider text-gray-400 mb-1">Tenure (Years)</label>
-                <input 
-                  type="text" 
-                  inputMode="numeric"
-                  value={tenure} 
-                  onChange={(e) => setTenure(e.target.value.replace(/[^0-9]/g, ""))} 
-                  className={`w-full p-2.5 rounded-xl border text-sm font-bold ${darkMode ? "bg-slate-900 border-slate-700 text-white" : "bg-gray-50 border-gray-200"}`} 
-                />
-              </div>
+          <div className="flex flex-col gap-5">
+            <div>
+              <label className="block text-[11px] font-black uppercase tracking-wider text-gray-400 mb-1">Loan Amount (₹)</label>
+              <input type="text" inputMode="numeric" value={loanAmount} onChange={(e) => setLoanAmount(e.target.value.replace(/[^0-9]/g, ""))} className={`w-full p-2.5 rounded-xl border text-sm font-bold ${darkMode ? "bg-slate-900 border-slate-700 text-white" : "bg-gray-50 border-gray-200"}`} />
             </div>
+            <div>
+              <label className="block text-[11px] font-black uppercase tracking-wider text-gray-400 mb-1">Interest Rate (% p.a.)</label>
+              <input type="text" inputMode="decimal" value={interestRate} onChange={(e) => setInterestRate(e.target.value.replace(/[^0-9.]/g, ""))} className={`w-full p-2.5 rounded-xl border text-sm font-bold ${darkMode ? "bg-slate-900 border-slate-700 text-white" : "bg-gray-50 border-gray-200"}`} />
+            </div>
+            <div>
+              <label className="block text-[11px] font-black uppercase tracking-wider text-gray-400 mb-1">Tenure (Years)</label>
+              <input type="text" inputMode="numeric" value={tenure} onChange={(e) => setTenure(e.target.value.replace(/[^0-9]/g, ""))} className={`w-full p-2.5 rounded-xl border text-sm font-bold ${darkMode ? "bg-slate-900 border-slate-700 text-white" : "bg-gray-50 border-gray-200"}`} />
+            </div>
+          </div>
 
-            {/* High Contrast Clean Metrics Grid - Text visibility fixed here */}
-            <div className="grid grid-cols-3 gap-3 mt-8 pt-6 border-t border-gray-100 dark:border-slate-700 text-center">
-              <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}>
-                <span className={`text-[10px] uppercase font-black tracking-wider block mb-1 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>Monthly EMI</span>
-                <span className="text-xs sm:text-sm font-black text-amber-500">₹{Math.round(emi).toLocaleString("en-IN")}</span>
-              </div>
-              <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}>
-                <span className={`text-[10px] uppercase font-black tracking-wider block mb-1 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>Total Interest</span>
-                <span className={`text-xs sm:text-sm font-black ${darkMode ? "text-slate-100" : "text-slate-900"}`}>₹{Math.round(totalInterest).toLocaleString("en-IN")}</span>
-              </div>
-              <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}>
-                <span className={`text-[10px] uppercase font-black tracking-wider block mb-1 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>Total Payable</span>
-                <span className="text-xs sm:text-sm font-black text-[#3b6e9c]">₹{Math.round(totalPayment).toLocaleString("en-IN")}</span>
-              </div>
+          <div className="grid grid-cols-3 gap-3 mt-8 pt-6 border-t border-gray-100 dark:border-slate-700 text-center">
+            <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}>
+              <span className={`text-[10px] uppercase font-black tracking-wider block mb-1 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>Monthly EMI</span>
+              <span className="text-xs sm:text-sm font-black text-amber-500">₹{Math.round(emi).toLocaleString("en-IN")}</span>
+            </div>
+            <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}>
+              <span className={`text-[10px] uppercase font-black tracking-wider block mb-1 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>Total Interest</span>
+              <span className={`text-xs sm:text-sm font-black ${darkMode ? "text-slate-100" : "text-slate-900"}`}>₹{Math.round(totalInterest).toLocaleString("en-IN")}</span>
+            </div>
+            <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}>
+              <span className={`text-[10px] uppercase font-black tracking-wider block mb-1 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>Total Payable</span>
+              <span className="text-xs sm:text-sm font-black text-[#3b6e9c]">₹{Math.round(totalPayment).toLocaleString("en-IN")}</span>
             </div>
           </div>
         </div>
+
+        {/* Right Side: Shared Financial Tools Sidebar Menu */}
+        <div className={`w-full md:w-[30%] border rounded-2xl p-5 shadow-xl md:sticky md:top-20 ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
+          <Link href="/" onClick={saveTabPreference} className={`text-[11px] font-black uppercase tracking-wider transition-colors block mb-4 ${darkMode ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-[#3b6e9c]"}`}>
+            ← Hub Dashboard
+          </Link>
+          <h2 className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3 border-b pb-1">Other Finance Tools</h2>
+          <div className="flex flex-col gap-2">
+            <Link href="/sip-calculator" className={`w-full p-2.5 rounded-xl text-xs font-bold transition-all hover:translate-x-1 block ${darkMode ? "bg-slate-900 text-slate-300 hover:bg-slate-750" : "bg-gray-50 text-slate-700 hover:bg-gray-100"}`}>
+              💰 SIP Calculator
+            </Link>
+            <div className="w-full p-2.5 rounded-xl text-xs font-black bg-[#3b6e9c] text-white tracking-wide shadow-sm">
+              🏦 EMI Calculator
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );

@@ -74,18 +74,18 @@ export default function SipCalculator() {
               </div>
             </div>
 
-            {/* High Contrast Clean Metrics Grid */}
+            {/* High Contrast Clean Metrics Grid - Labels aur Values dono ka color ekdam sharp aur clear kiya hai */}
             <div className="grid grid-cols-3 gap-3 mt-8 pt-6 border-t border-gray-100 dark:border-slate-700 text-center">
-              <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700 text-slate-200" : "bg-gray-100 border-gray-200 text-slate-800"}`}>
-                <span className="text-[10px] uppercase font-black tracking-wider text-gray-400 block mb-1">Invested</span>
-                <span className="text-xs sm:text-sm font-black text-slate-500 dark:text-slate-300">₹{Math.round(totalInvestment).toLocaleString("en-IN")}</span>
+              <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}>
+                <span className={`text-[10px] uppercase font-black tracking-wider block mb-1 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>Invested</span>
+                <span className={`text-xs sm:text-sm font-black ${darkMode ? "text-slate-100" : "text-slate-900"}`}>₹{Math.round(totalInvestment).toLocaleString("en-IN")}</span>
               </div>
-              <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700 text-slate-200" : "bg-gray-100 border-gray-200 text-slate-800"}`}>
-                <span className="text-[10px] uppercase font-black tracking-wider text-gray-400 block mb-1">Est. Returns</span>
+              <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}>
+                <span className={`text-[10px] uppercase font-black tracking-wider block mb-1 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>Est. Returns</span>
                 <span className="text-xs sm:text-sm font-black text-[#5c940d]">₹{Math.round(wealthGained).toLocaleString("en-IN")}</span>
               </div>
-              <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700 text-slate-200" : "bg-gray-100 border-gray-200 text-slate-800"}`}>
-                <span className="text-[10px] uppercase font-black tracking-wider text-gray-400 block mb-1">Total Value</span>
+              <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}>
+                <span className={`text-[10px] uppercase font-black tracking-wider block mb-1 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>Total Value</span>
                 <span className="text-xs sm:text-sm font-black text-[#3b6e9c]">₹{Math.round(totalValue).toLocaleString("en-IN")}</span>
               </div>
             </div>

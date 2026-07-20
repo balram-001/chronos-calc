@@ -18,7 +18,7 @@ export default function AboutPage() {
             <img 
               src="/logo.png" 
               alt="logo" 
-              className="h-8 w-8 sm:h-9 sm:w-9 object-contain rounded-full border border-gray-200 dark:border-slate-600 shadow-sm flex-shrink-0" 
+              className="h-8 w-8 sm:h-9 sm:w-9 object-cover rounded-full border border-gray-200 dark:border-slate-600 shadow-sm flex-shrink-0" 
             />
             <span className={`text-base sm:text-xl font-black tracking-tight truncate ${darkMode ? "text-white" : "text-[#2b5880]"}`}>
               chronos-calc

@@ -4,7 +4,7 @@ export const metadata = {
   title: "chronos-calc",
   description: "Calculate exact chronological age, absolute day variance, time duration gaps, birthday countdowns, and track baby growth indexes with precision metrics.",
   icons: {
-    icon: "/logo.png",
+    icon: "/icon.png",
   },
   verification: {
     google: "LszHai97qEfh9K7c6xRrjjGcBsOwQbIrGzQhwEYWOOo",

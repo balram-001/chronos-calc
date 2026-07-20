@@ -31,7 +31,7 @@ export default function ChronosCalcHub() {
             <img 
               src="/logo.png" 
               alt="chronos-calc custom logo" 
-              className="h-9 w-auto object-contain rounded-md"
+              className="h-9 w-9 rounded-full object-cover border border-gray-200 shadow-sm"
             />
             <span className={`text-xl font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>
               chronos-calc

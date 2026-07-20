@@ -22,15 +22,23 @@ export default function ChronosCalcHub() {
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [activeTab, setActiveTab] = useState<"chrono" | "finance">("chrono");
 
+  // Load state when page mounts or when browser triggers history state navigation
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedTab = localStorage.getItem("chronos_active_tab");
       if (storedTab === "finance" || storedTab === "chrono") {
         setActiveTab(storedTab);
-        localStorage.removeItem("chronos_active_tab"); 
       }
     }
   }, []);
+
+  // Function to change tab and lock the state in global storage immediately
+  const handleTabChange = (tab: "chrono" | "finance") => {
+    setActiveTab(tab);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("chronos_active_tab", tab);
+    }
+  };
 
   return (
     <div className={`w-full min-h-screen flex flex-col transition-colors duration-300 ${darkMode ? "bg-slate-900 text-slate-100" : "bg-[#f8fafc] text-[#333]"}`}>
@@ -56,8 +64,8 @@ export default function ChronosCalcHub() {
 
           <div className="flex justify-center mb-8">
             <div className={`p-1 rounded-xl flex gap-1 border ${darkMode ? "bg-slate-800 border-slate-700" : "bg-gray-100 border-gray-200"}`}>
-              <button onClick={() => setActiveTab("chrono")} className={`px-4 py-2 text-xs font-black uppercase tracking-wider rounded-lg transition-all ${activeTab === "chrono" ? "bg-[#3b6e9c] text-white shadow-md" : darkMode ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-slate-800"}`}>⏳ Time & Life</button>
-              <button onClick={() => setActiveTab("finance")} className={`px-4 py-2 text-xs font-black uppercase tracking-wider rounded-lg transition-all ${activeTab === "finance" ? "bg-[#5c940d] text-white shadow-md" : darkMode ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-slate-800"}`}>📊 Finance & Math</button>
+              <button onClick={() => handleTabChange("chrono")} className={`px-4 py-2 text-xs font-black uppercase tracking-wider rounded-lg transition-all ${activeTab === "chrono" ? "bg-[#3b6e9c] text-white shadow-md" : darkMode ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-slate-800"}`}>⏳ Time & Life</button>
+              <button onClick={() => handleTabChange("finance")} className={`px-4 py-2 text-xs font-black uppercase tracking-wider rounded-lg transition-all ${activeTab === "finance" ? "bg-[#5c940d] text-white shadow-md" : darkMode ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-slate-800"}`}>📊 Finance & Math</button>
             </div>
           </div>
           
@@ -70,7 +78,6 @@ export default function ChronosCalcHub() {
               <ToolCard title="Baby Tracker" icon="👶" href="/baby-tracker" desc="Track infant milestones in weeks and days." darkMode={darkMode} />
             </div>
           ) : (
-            // Flex design to keep cards clean and beautifully spaced since there are 2 items
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6 max-w-[900px] mx-auto animate-in fade-in zoom-in-95 duration-300">
               <div className="w-[calc(50%-8px)] lg:w-[calc(33.33%-16px)] min-w-[140px]">
                 <ToolCard title="SIP Calculator" icon="💰" href="/sip-calculator" desc="Estimate dynamic future wealth accumulation." darkMode={darkMode} />

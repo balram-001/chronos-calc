@@ -1,9 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useDarkMode } from "../hooks/use-dark-mode";
 import { dateFromParts, differenceInCalendarDays, isValidDate } from "../lib/date-utils";
+
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+function getTodayParts() {
+  const today = new Date();
+  return { month: monthNames[today.getMonth()], day: String(today.getDate()), year: String(today.getFullYear()) };
+}
 
 export default function DateCalculatorPage() {
   const { darkMode, toggleDarkMode } = useDarkMode();
@@ -13,10 +20,16 @@ export default function DateCalculatorPage() {
   const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
   const yearsList = Array.from({ length: 101 }, (_, i) => String(2035 - i));
 
-  const [startDMonth, setStartDMonth] = useState("Jul"); const [startDDay, setStartDDay] = useState("16"); const [startDYear, setStartDYear] = useState("2026");
-  const [endDMonth, setEndDMonth] = useState("Jul"); const [endDDay, setEndDDay] = useState("19"); const [endDYear, setEndDYear] = useState("2026");
+  const [startDMonth, setStartDMonth] = useState("Jan"); const [startDDay, setStartDDay] = useState("1"); const [startDYear, setStartDYear] = useState("2026");
+  const [endDMonth, setEndDMonth] = useState("Jan"); const [endDDay, setEndDDay] = useState("1"); const [endDYear, setEndDYear] = useState("2026");
   const [dateResult, setDateResult] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const { month, day, year } = getTodayParts();
+    setStartDMonth(month); setStartDDay(day); setStartDYear(year);
+    setEndDMonth(month); setEndDDay(day); setEndDYear(year);
+  }, []);
 
   const handleDateCalculate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 

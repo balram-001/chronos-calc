@@ -1,9 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useDarkMode } from "../hooks/use-dark-mode";
 import { dateFromParts, differenceInCalendarDays, isValidDate } from "../lib/date-utils";
+
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+function getTodayParts() {
+  const today = new Date();
+  return { month: monthNames[today.getMonth()], day: String(today.getDate()), year: String(today.getFullYear()) };
+}
 
 export default function AgeCalculatorPage() {
   const { darkMode, toggleDarkMode } = useDarkMode();
@@ -13,14 +20,20 @@ export default function AgeCalculatorPage() {
   const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
   const yearsList = Array.from({ length: 101 }, (_, i) => String(2035 - i));
 
-  const [birthMonth, setBirthMonth] = useState("Jul"); 
-  const [birthDay, setBirthDay] = useState("16"); 
-  const [birthYear, setBirthYear] = useState("2009");
-  const [targetMonth, setTargetMonth] = useState("Jul"); 
-  const [targetDay, setTargetDay] = useState("19"); 
+  const [birthMonth, setBirthMonth] = useState("Jan");
+  const [birthDay, setBirthDay] = useState("1");
+  const [birthYear, setBirthYear] = useState("2026");
+  const [targetMonth, setTargetMonth] = useState("Jan");
+  const [targetDay, setTargetDay] = useState("1");
   const [targetYear, setTargetYear] = useState("2026");
   const [ageResult, setAgeResult] = useState<{ years: number; months: number; days: number; totalDays: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const { month, day, year } = getTodayParts();
+    setBirthMonth(month); setBirthDay(day); setBirthYear(year);
+    setTargetMonth(month); setTargetDay(day); setTargetYear(year);
+  }, []);
 
   const handleAgeCalculate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 

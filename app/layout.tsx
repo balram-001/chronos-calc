@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "chronos-calc",
-  description: "Calculate exact chronological age, absolute day variance, time duration gaps, birthday countdowns, and track baby growth indexes with precision metrics.",
+  title: "chronos-calc — Precision Calculation Hub",
+  description: "Calculate exact chronological age parameters, track milestone variables, and evaluate financial matrix operations like SIP, EMI, Lumpsum asset indices, and inflation-adjusted commercial returns with absolute numeric precision.",
   icons: {
     icon: "/icon.png",
   },

@@ -1,122 +1,76 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useDarkMode } from "../hooks/use-dark-mode";
-import { dateFromParts, differenceInCalendarDays, isValidDate } from "../lib/date-utils";
 
-const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export default function AgeCalculator() {
+  const { darkMode } = useDarkMode();
+  const [dob, setDob] = useState<string>("");
+  const [ageData, setAgeData] = useState<{ years: number; months: number; days: number } | null>(null);
 
-function getTodayParts() {
-  const today = new Date();
-  return { month: monthNames[today.getMonth()], day: String(today.getDate()), year: String(today.getFullYear()) };
-}
+  const calculateAge = () => {
+    if (!dob) return;
+    const birthDate = new Date(dob);
+    const today = new Date();
+    
+    let years = today.getFullYear() - birthDate.getFullYear();
+    let months = today.getMonth() - birthDate.getMonth();
+    let days = today.getDate() - birthDate.getDate();
 
-export default function AgeCalculatorPage() {
-  const { darkMode, toggleDarkMode } = useDarkMode();
-
-  const monthsMap: { [key: string]: number } = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
-  const months = Object.keys(monthsMap);
-  const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
-  const yearsList = Array.from({ length: 101 }, (_, i) => String(2035 - i));
-
-  const [birthMonth, setBirthMonth] = useState("Jan");
-  const [birthDay, setBirthDay] = useState("1");
-  const [birthYear, setBirthYear] = useState("2026");
-  const [targetMonth, setTargetMonth] = useState("Jan");
-  const [targetDay, setTargetDay] = useState("1");
-  const [targetYear, setTargetYear] = useState("2026");
-  const [ageResult, setAgeResult] = useState<{ years: number; months: number; days: number; totalDays: number } | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const { month, day, year } = getTodayParts();
-    setBirthMonth(month); setBirthDay(day); setBirthYear(year);
-    setTargetMonth(month); setTargetDay(day); setTargetYear(year);
-  }, []);
-
-  const handleAgeCalculate = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); 
-    const dob = dateFromParts(Number(birthYear), monthsMap[birthMonth], Number(birthDay));
-    const target = dateFromParts(Number(targetYear), monthsMap[targetMonth], Number(targetDay));
-    if (!isValidDate(Number(birthYear), monthsMap[birthMonth], Number(birthDay)) || !isValidDate(Number(targetYear), monthsMap[targetMonth], Number(targetDay))) {
-      setAgeResult(null); setError("Please select valid calendar dates."); return;
+    if (days < 0) {
+      months--;
+      const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+      days += prevMonth.getDate();
     }
-    if (target < dob) {
-      setAgeResult(null); setError("Target date cannot be before the birth date."); return;
+    if (months < 0) {
+      years--;
+      months += 12;
     }
-    setError(null);
-    let y = target.getFullYear() - dob.getFullYear(); 
-    let m = target.getMonth() - dob.getMonth(); 
-    let d = target.getDate() - dob.getDate(); 
-    if (d < 0) { 
-      d += new Date(target.getFullYear(), target.getMonth(), 0).getDate(); 
-      m--; 
-    } 
-    if (m < 0) { 
-      m += 12; 
-      y--; 
-    } 
-    setAgeResult({ 
-      years: y, 
-      months: m, 
-      days: d, 
-      totalDays: differenceInCalendarDays(target, dob)
-    }); 
+    setAgeData({ years, months, days });
   };
 
   return (
     <div className={`w-full min-h-screen flex flex-col transition-colors duration-300 ${darkMode ? "bg-slate-900 text-slate-100" : "bg-[#f8fafc] text-[#333]"}`}>
-      <header className={`w-full border-b py-3 px-6 flex justify-center sticky top-0 z-50 ${darkMode ? "bg-slate-800 border-slate-700 shadow-md" : "bg-white border-gray-200 shadow-sm"}`}>
+      <header className={`w-full border-b py-3 px-4 flex justify-center sticky top-0 z-50 ${darkMode ? "bg-slate-800 border-slate-700 shadow-md" : "bg-white border-gray-200 shadow-sm"}`}>
         <div className="w-full max-w-[1050px] flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <img src="/icon.png" alt="chronos-calc logo" className="h-9 w-9 rounded-full object-cover border border-gray-200 shadow-sm" />
-            <span className={`text-xl font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>chronos-calc</span>
+          <Link href="/" className="flex items-center gap-2">
+            <img src="/icon.png" alt="logo" className="h-8 w-8 rounded-full object-cover" />
+            <span className={`text-base font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>chronos-calc</span>
           </Link>
-          <div className="flex items-center gap-4">
-            <button onClick={toggleDarkMode} aria-label="Toggle color theme" className={`px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-wider ${darkMode ? "border-slate-600 bg-slate-700 text-yellow-400" : "border-gray-200 bg-gray-50 text-slate-700 shadow-sm"}`}>
-              {darkMode ? "☀️ Light" : "🌙 Dark"}
-            </button>
-          </div>
+          <Link href="/" className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md border ${darkMode ? "text-gray-400 border-slate-700 hover:text-white" : "text-gray-500 border-gray-100"}`}>← Hub</Link>
         </div>
       </header>
 
-      <div className="w-full max-w-[1050px] mx-auto px-6 pt-8 pb-20 flex-1">
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-6">
-            <div className={`border rounded-2xl shadow-xl overflow-hidden ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
-              <div className="bg-[#3b6e9c] text-white text-[10px] font-black py-2 px-4 text-center uppercase tracking-[0.2em]">Engine: Age Calculator Engine v1.0</div>
-              <div className="p-6 sm:p-8">
-                <form onSubmit={handleAgeCalculate} className="flex flex-col gap-4">
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                    <label className="text-[11px] font-black text-gray-400 uppercase w-24">Birth Date</label>
-                    <div className="flex gap-2 flex-1">
-                      <select value={birthMonth} onChange={(e)=>setBirthMonth(e.target.value)} className={`border rounded-lg p-2 text-xs flex-1 outline-none ${darkMode ? "bg-slate-700 border-slate-600" : "bg-white border-gray-200"}`}>{months.map(m=><option key={m}>{m}</option>)}</select>
-                      <select value={birthDay} onChange={(e)=>setBirthDay(e.target.value)} className={`border rounded-lg p-2 text-xs flex-1 outline-none ${darkMode ? "bg-slate-700 border-slate-600" : "bg-white border-gray-200"}`}>{days.map(d=><option key={d}>{d}</option>)}</select>
-                      <select value={birthYear} onChange={(e)=>setBirthYear(e.target.value)} className={`border rounded-lg p-2 text-xs flex-1 outline-none ${darkMode ? "bg-slate-700 border-slate-600" : "bg-white border-gray-200"}`}>{yearsList.map(y=><option key={y}>{y}</option>)}</select>
-                    </div>
-                  </div>
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                    <label className="text-[11px] font-black text-gray-400 uppercase w-24">Target Date</label>
-                    <div className="flex gap-2 flex-1">
-                      <select value={targetMonth} onChange={(e)=>setTargetMonth(e.target.value)} className={`border rounded-lg p-2 text-xs flex-1 outline-none ${darkMode ? "bg-slate-700 border-slate-600" : "bg-white border-gray-200"}`}>{months.map(m=><option key={m}>{m}</option>)}</select>
-                      <select value={targetDay} onChange={(e)=>setTargetDay(e.target.value)} className={`border rounded-lg p-2 text-xs flex-1 outline-none ${darkMode ? "bg-slate-700 border-slate-600" : "bg-white border-gray-200"}`}>{days.map(d=><option key={d}>{d}</option>)}</select>
-                      <select value={targetYear} onChange={(e)=>setTargetYear(e.target.value)} className={`border rounded-lg p-2 text-xs flex-1 outline-none ${darkMode ? "bg-slate-700 border-slate-600" : "bg-white border-gray-200"}`}>{yearsList.map(y=><option key={y}>{y}</option>)}</select>
-                    </div>
-                  </div>
-                  <button type="submit" className="bg-[#5c940d] text-white font-black py-3 px-6 rounded-xl mt-2 text-xs uppercase tracking-widest">Run Calculation</button>
-                  {error && <p role="alert" className="text-sm font-bold text-red-600">{error}</p>}
-                  {ageResult && (
-                    <div className={`mt-6 p-5 rounded-xl border ${darkMode ? "bg-slate-900/50 border-slate-700" : "bg-[#f8faf6] border-green-100"}`}>
-                      <p className="text-lg font-black text-[#5c940d]">{ageResult.years}y {ageResult.months}m {ageResult.days}d</p>
-                      <p className={`text-[10px] mt-1 uppercase font-bold ${darkMode ? "text-slate-300" : "text-slate-500"}`}>Lived: {ageResult.totalDays.toLocaleString()} Days</p>
-                    </div>
-                  )}
-                </form>
-              </div>
+      <div className="w-full max-w-[1050px] mx-auto px-4 pt-6 pb-20 flex-1 flex flex-col md:flex-row gap-6 justify-center items-start">
+        {/* Left Input Box */}
+        <div className={`w-full md:w-[65%] border rounded-2xl p-5 shadow-lg ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
+          <h1 className="text-lg font-black mb-5 tracking-tight uppercase border-b pb-2">Age Matrix Scanner</h1>
+          <div className="flex flex-col gap-4">
+            <div>
+              <label className="block text-[11px] font-black uppercase tracking-wider text-gray-400 mb-1">Select Date of Birth</label>
+              <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} className={`w-full p-2.5 rounded-xl border text-sm font-bold ${darkMode ? "bg-slate-900 border-slate-700 text-white" : "bg-gray-50 border-gray-200"}`} />
             </div>
+            <button onClick={calculateAge} className="w-full py-3 bg-[#3b6e9c] text-white rounded-xl font-black uppercase text-xs tracking-wider shadow-md hover:bg-[#2d567a] transition-all">Compute Timeline</button>
           </div>
 
+          {ageData && (
+            <div className="grid grid-cols-3 gap-3 mt-6 pt-5 border-t border-gray-100 dark:border-slate-700 text-center">
+              <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}><span className="text-[10px] uppercase font-black tracking-wider text-gray-400 block">Years</span><span className="text-base font-black">{ageData.years}</span></div>
+              <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}><span className="text-[10px] uppercase font-black tracking-wider text-gray-400 block">Months</span><span className="text-base font-black">{ageData.months}</span></div>
+              <div className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}><span className="text-[10px] uppercase font-black tracking-wider text-gray-400 block">Days</span><span className="text-base font-black">{ageData.days}</span></div>
+            </div>
+          )}
+        </div>
+
+        {/* Right How to Use Info Box (Restored Width for Mobile) */}
+        <div className={`w-full md:w-[35%] border rounded-2xl p-5 shadow-lg ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
+          <h2 className="text-[11px] font-black uppercase tracking-widest text-[#3b6e9c] dark:text-sky-400 mb-3 border-b pb-1">⚙️ How To Use</h2>
+          <div className="text-[11px] text-gray-400 leading-relaxed flex flex-col gap-2.5">
+            <p><strong>1. Kya Daalna Hai:</strong> Apni exact Date of Birth (paidaish ki tarikh) calendar entry engine se select karein.</p>
+            <p><strong>2. Kaise Kaam Karega:</strong> Tab Compute Timeline button par click karein. System aapki age ko live years, months, aur days me breakdown kar dega.</p>
+            <p><strong>3. Use Case:</strong> Govt jobs forms verification, legal profile scanning, aur exact biological chronological milestones check karne ke liye iska use hota hai.</p>
+          </div>
         </div>
       </div>
     </div>

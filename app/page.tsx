@@ -70,10 +70,14 @@ export default function ChronosCalcHub() {
               <ToolCard title="Baby Tracker" icon="👶" href="/baby-tracker" desc="Track infant milestones in weeks and days." darkMode={darkMode} />
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-[900px] mx-auto animate-in fade-in zoom-in-95 duration-300">
-              <ToolCard title="SIP Calculator" icon="💰" href="/sip-calculator" desc="Estimate dynamic future wealth accumulation." darkMode={darkMode} />
-              <ToolCard title="EMI Calculator" icon="🏦" href="/emi-calculator" desc="Break down structural monthly loan installments." darkMode={darkMode} />
-              <ToolCard title="Normal Calculator" icon="🧮" href="/normal-calculator" desc="Standard processing logic for quick math parameters." darkMode={darkMode} />
+            // Flex design to keep cards clean and beautifully spaced since there are 2 items
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 max-w-[900px] mx-auto animate-in fade-in zoom-in-95 duration-300">
+              <div className="w-[calc(50%-8px)] lg:w-[calc(33.33%-16px)] min-w-[140px]">
+                <ToolCard title="SIP Calculator" icon="💰" href="/sip-calculator" desc="Estimate dynamic future wealth accumulation." darkMode={darkMode} />
+              </div>
+              <div className="w-[calc(50%-8px)] lg:w-[calc(33.33%-16px)] min-w-[140px]">
+                <ToolCard title="EMI Calculator" icon="🏦" href="/emi-calculator" desc="Break down structural monthly loan installments." darkMode={darkMode} />
+              </div>
             </div>
           )}
         </div>

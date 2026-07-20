@@ -54,7 +54,7 @@ export default function AgeCalculator() {
       <header className={`w-full border-b py-3 px-4 flex justify-center sticky top-0 z-50 ${darkMode ? "bg-slate-800 border-slate-700 shadow-md" : "bg-white border-gray-200 shadow-sm"}`}>
         <div className="w-full max-w-[1050px] flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2"><img src="/icon.png" alt="logo" className="h-8 w-8 rounded-full object-cover" /><span className={`text-base font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>chronos-calc</span></Link>
-          <Link href="/" className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md border ${darkMode ? "text-gray-400 border-slate-700 hover:text-white" : "text-gray-500 border-gray-100"}`}>← Hub</Link>
+          <Link href="/" className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md border ${darkMode ? "text-gray-400 border-slate-700 hover:text-white" : "text-gray-500 border-gray-100"}`}>â† Home</Link>
         </div>
       </header>
       <div className="w-full max-w-[1050px] mx-auto px-4 pt-6 pb-20 flex-1 flex flex-col md:flex-row gap-6 justify-center items-start">
@@ -69,7 +69,7 @@ export default function AgeCalculator() {
           </form></div>
         </div>
         <div className={`w-full md:w-[35%] border rounded-2xl p-5 shadow-lg ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
-          <h2 className="text-[11px] font-black uppercase tracking-widest text-[#3b6e9c] dark:text-sky-400 mb-3 border-b pb-1">⚙️ How To Use</h2>
+          <h2 className="text-[11px] font-black uppercase tracking-widest text-[#3b6e9c] dark:text-sky-400 mb-3 border-b pb-1">âš™ï¸ How To Use</h2>
           <div className="text-[11px] text-gray-400 leading-relaxed flex flex-col gap-2.5"><p><strong>1. Kya Daalna Hai:</strong> Apni exact Date of Birth (paidaish ki tarikh) calendar entry engine se select karein.</p><p><strong>2. Kaise Kaam Karega:</strong> Tab Compute Timeline button par click karein. System aapki age ko live years, months, aur days me breakdown kar dega.</p><p><strong>3. Use Case:</strong> Govt jobs forms verification, legal profile scanning, aur exact biological chronological milestones check karne ke liye iska use hota hai.</p></div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useDarkMode } from "./hooks/use-dark-mode";
 
@@ -20,6 +20,8 @@ function ToolCard({ title, icon, href, desc, darkMode }: ToolCardProps) {
 
 export default function ChronosCalcHub() {
   const { darkMode, toggleDarkMode } = useDarkMode();
+  // Active Tab State: 'chrono' for time tools, 'finance' for commercial metrics
+  const [activeTab, setActiveTab] = useState<"chrono" | "finance">("chrono");
 
   return (
     <div className={`w-full min-h-screen flex flex-col transition-colors duration-300 ${darkMode ? "bg-slate-900 text-slate-100" : "bg-[#f8fafc] text-[#333]"}`}>
@@ -31,7 +33,7 @@ export default function ChronosCalcHub() {
             <img 
               src="/icon.png"
               alt="chronos-calc custom logo" 
-              className="h-9 w-9 rounded-full object-cover border border-gray-200 shadow-sm"
+              className="h-9 w-9 rounded-full object-cover border border-gray-200 shadow-sm flex-shrink-0"
             />
             <span className={`text-xl font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>
               chronos-calc
@@ -56,18 +58,55 @@ export default function ChronosCalcHub() {
       {/* Main Content */}
       <div className="w-full max-w-[1050px] mx-auto px-6 pt-8 pb-20 flex-1 flex flex-col justify-center">
         <div className="animate-in fade-in duration-700">
-          <div className="text-center mb-8">
+          
+          <div className="text-center mb-6">
             <h1 className={`text-3xl sm:text-4xl font-black mb-2 tracking-tight ${darkMode ? "text-white" : "text-[#1e293b]"}`}>Precision Calculation Hub</h1>
-            <p className="text-gray-400 text-xs max-w-lg mx-auto italic">Premium suite for age, time, and life milestone tracking.</p>
+            <p className="text-gray-400 text-xs max-w-lg mx-auto italic">Premium suite for chronological parameters & commercial utility engines.</p>
+          </div>
+
+          {/* Dynamic Category Switcher Tabs */}
+          <div className="flex justify-center mb-8">
+            <div className={`p-1 rounded-xl flex gap-1 border ${darkMode ? "bg-slate-800 border-slate-700" : "bg-gray-100 border-gray-200"}`}>
+              <button
+                onClick={() => setActiveTab("chrono")}
+                className={`px-4 py-2 text-xs font-black uppercase tracking-wider rounded-lg transition-all ${
+                  activeTab === "chrono"
+                    ? "bg-[#3b6e9c] text-white shadow-md"
+                    : darkMode ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-slate-800"
+                }`}
+              >
+                ⏳ Time & Life
+              </button>
+              <button
+                onClick={() => setActiveTab("finance")}
+                className={`px-4 py-2 text-xs font-black uppercase tracking-wider rounded-lg transition-all ${
+                  activeTab === "finance"
+                    ? "bg-[#5c940d] text-white shadow-md"
+                    : darkMode ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-slate-800"
+                }`}
+              >
+                📊 Finance & Math
+              </button>
+            </div>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-[900px] mx-auto">
-            <ToolCard title="Age Calculator" icon="📅" href="/age-calculator" desc="Determine exact chronological age matrices." darkMode={darkMode} />
-            <ToolCard title="Date Calculator" icon="📆" href="/date-calculator" desc="Calculate absolute day variance between dates." darkMode={darkMode} />
-            <ToolCard title="Time Calculator" icon="⏱️" href="/time-calculator" desc="Evaluate precise time duration gaps." darkMode={darkMode} />
-            <ToolCard title="Birthday Tracker" icon="🎂" href="/birthday-tracker" desc="Countdown to your next big milestone." darkMode={darkMode} />
-            <ToolCard title="Baby Tracker" icon="👶" href="/baby-tracker" desc="Track infant milestones in weeks and days." darkMode={darkMode} />
-          </div>
+          {/* Conditional Layout Grid rendering */}
+          {activeTab === "chrono" ? (
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-[900px] mx-auto animate-in fade-in zoom-in-95 duration-300">
+              <ToolCard title="Age Calculator" icon="📅" href="/age-calculator" desc="Determine exact chronological age matrices." darkMode={darkMode} />
+              <ToolCard title="Date Calculator" icon="📆" href="/date-calculator" desc="Calculate absolute day variance between dates." darkMode={darkMode} />
+              <ToolCard title="Time Calculator" icon="⏱️" href="/time-calculator" desc="Evaluate precise time duration gaps." darkMode={darkMode} />
+              <ToolCard title="Birthday Tracker" icon="🎂" href="/birthday-tracker" desc="Countdown to your next big milestone." darkMode={darkMode} />
+              <ToolCard title="Baby Tracker" icon="👶" href="/baby-tracker" desc="Track infant milestones in weeks and days." darkMode={darkMode} />
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-[900px] mx-auto animate-in fade-in zoom-in-95 duration-300">
+              <ToolCard title="SIP Calculator" icon="💰" href="/sip-calculator" desc="Estimate dynamic future wealth accumulation." darkMode={darkMode} />
+              <ToolCard title="EMI Calculator" icon="🏦" href="/emi-calculator" desc="Break down structural monthly loan installments." darkMode={darkMode} />
+              <ToolCard title="Normal Calculator" icon="🧮" href="/normal-calculator" desc="Standard processing logic for quick math parameters." darkMode={darkMode} />
+            </div>
+          )}
+
         </div>
       </div>
 

@@ -38,7 +38,14 @@ export default function ChronosCalcHub() {
             </span>
           </div>
 
-          <div className="flex items-center gap-4">
+          {/* Connected Navbar Elements */}
+          <div className="flex items-center gap-5">
+            <Link 
+              href="/about" 
+              className={`text-xs font-black uppercase tracking-widest transition-colors ${darkMode ? "text-gray-300 hover:text-white" : "text-gray-500 hover:text-[#3b6e9c]"}`}
+            >
+              About
+            </Link>
             <button onClick={toggleDarkMode} aria-label="Toggle color theme" className={`px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-wider ${darkMode ? "border-slate-600 bg-slate-700 text-yellow-400" : "border-gray-200 bg-gray-50 text-slate-700 shadow-sm"}`}>
               {darkMode ? "☀️ Light" : "🌙 Dark"}
             </button>

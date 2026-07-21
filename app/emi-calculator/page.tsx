@@ -33,7 +33,7 @@ export default function EmiCalculator() {
             <img src="/icon.png" alt="logo" className="h-8 w-8 rounded-full object-cover" />
             <span className={`text-base font-black tracking-tight ${darkMode ? "text-white" : "text-[#2b5880]"}`}>chronos-calc</span>
           </Link>
-          <Link href="/" onClick={saveTabPreference} className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md border ${darkMode ? "text-gray-400 border-slate-700 hover:text-white" : "text-gray-500 border-gray-100"}`}>â† Home</Link>
+          <Link href="/" onClick={saveTabPreference} className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md border ${darkMode ? "text-gray-400 border-slate-700 hover:text-white" : "text-gray-500 border-gray-100"}`}>← Home</Link>
         </div>
       </header>
 
@@ -42,7 +42,7 @@ export default function EmiCalculator() {
           <h1 className="text-lg font-black mb-5 tracking-tight uppercase border-b pb-2">Loan EMI Calculator</h1>
           <div className="flex flex-col gap-4">
             <div>
-              <label className="block text-[11px] font-black uppercase tracking-wider text-gray-400 mb-1">Loan Amount (â‚¹)</label>
+              <label className="block text-[11px] font-black uppercase tracking-wider text-gray-400 mb-1">Loan Amount (₹)</label>
               <input type="text" value={loanAmount} onChange={(e) => setLoanAmount(e.target.value.replace(/[^0-9]/g, ""))} className={`w-full p-2.5 rounded-xl border text-sm font-bold ${darkMode ? "bg-slate-900 border-slate-700 text-white" : "bg-gray-50 border-gray-200"}`} />
             </div>
             <div>
@@ -56,16 +56,16 @@ export default function EmiCalculator() {
           </div>
 
           <div className="grid grid-cols-3 gap-2 mt-6 pt-5 border-t border-gray-100 dark:border-slate-700 text-center">
-            <div className={`p-2 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}><span className="text-[9px] uppercase font-black text-gray-400 block">Monthly EMI</span><span className="text-xs font-black text-amber-500">â‚¹{Math.round(emi).toLocaleString("en-IN")}</span></div>
-            <div className={`p-2 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}><span className="text-[9px] uppercase font-black text-gray-400 block">Interest</span><span className="text-xs font-black">â‚¹{Math.round(totalInterest).toLocaleString("en-IN")}</span></div>
-            <div className={`p-2 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}><span className="text-[9px] uppercase font-black text-gray-400 block">Payable</span><span className="text-xs font-black text-[#3b6e9c]">â‚¹{Math.round(totalPayment).toLocaleString("en-IN")}</span></div>
+            <div className={`p-2 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}><span className="text-[9px] uppercase font-black text-gray-400 block">Monthly EMI</span><span className="text-xs font-black text-amber-500">₹{Math.round(emi).toLocaleString("en-IN")}</span></div>
+            <div className={`p-2 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}><span className="text-[9px] uppercase font-black text-gray-400 block">Interest</span><span className="text-xs font-black">₹{Math.round(totalInterest).toLocaleString("en-IN")}</span></div>
+            <div className={`p-2 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-700" : "bg-gray-100 border-gray-200"}`}><span className="text-[9px] uppercase font-black text-gray-400 block">Payable</span><span className="text-xs font-black text-[#3b6e9c]">₹{Math.round(totalPayment).toLocaleString("en-IN")}</span></div>
           </div>
         </div>
 
         <div className={`w-full md:w-[35%] border rounded-2xl p-5 shadow-lg ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"}`}>
-          <h2 className="text-[11px] font-black uppercase tracking-widest text-[#5c940d] mb-3 border-b pb-1">âš™ï¸ How To Use</h2>
+          <h2 className="text-[11px] font-black uppercase tracking-widest text-[#5c940d] mb-3 border-b pb-1">⚙️ How To Use</h2>
           <div className="text-[11px] text-gray-400 leading-relaxed flex flex-col gap-2.5">
-            <p><strong>1. Kya Daalna Hai:</strong> Total principle loan capital amount (â‚¹), bank annual interest rate (%) aur time duration tenure select karein.</p>
+            <p><strong>1. Kya Daalna Hai:</strong> Total principle loan capital amount (₹), bank annual interest rate (%) aur time duration tenure select karein.</p>
             <p><strong>2. Kaise Kaam Karega:</strong> Core matrix real-time compute karke exact monthly EMI amortization breakdown, bank interest costs calculations dynamic monitor karta hai.</p>
             <p><strong>3. Use Case:</strong> Home loans calculations, car EMI configurations, structural financial liability forecasting ke liye reliable system tool hai.</p>
           </div>

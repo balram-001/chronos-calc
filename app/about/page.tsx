@@ -33,7 +33,7 @@ export default function AboutPage() {
                 darkMode ? "text-gray-400 border-slate-700 hover:text-white hover:bg-slate-700" : "text-gray-500 border-gray-100 hover:text-[#3b6e9c] hover:bg-gray-50"
               }`}
             >
-              â† Home
+              ← Home
             </Link>
             <button 
               onClick={() => setDarkMode(!darkMode)} 
@@ -41,7 +41,7 @@ export default function AboutPage() {
                 darkMode ? "border-slate-600 bg-slate-700 text-yellow-400" : "border-gray-200 bg-gray-50 text-slate-700 shadow-sm"
               }`}
             >
-              {darkMode ? "â˜€ï¸" : "ðŸŒ™"}
+              {darkMode ? "☀️" : "🌙"}
             </button>
           </div>
 
@@ -112,7 +112,7 @@ export default function AboutPage() {
       </div>
 
       <footer className={`w-full border-t py-4 text-center text-[9px] font-bold uppercase tracking-[0.3em] transition-colors ${darkMode ? "bg-slate-800 text-slate-500 border-slate-700" : "bg-white text-gray-300 border-gray-200"}`}>
-        Â© 2026 chronos-calc / Precision Processing
+        © 2026 chronos-calc / Precision Processing
       </footer>
     </div>
   );

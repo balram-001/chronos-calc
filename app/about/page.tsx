@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
+import { useDarkMode } from "../hooks/use-dark-mode";
 
 export default function AboutPage() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode } = useDarkMode();
 
   return (
     <div className={`w-full min-h-screen flex flex-col transition-colors duration-300 ${darkMode ? "bg-slate-900 text-slate-100" : "bg-[#f8fafc] text-[#333]"}`}>
@@ -35,14 +36,6 @@ export default function AboutPage() {
             >
               ← Home
             </Link>
-            <button 
-              onClick={() => setDarkMode(!darkMode)} 
-              className={`px-2.5 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-wider ${
-                darkMode ? "border-slate-600 bg-slate-700 text-yellow-400" : "border-gray-200 bg-gray-50 text-slate-700 shadow-sm"
-              }`}
-            >
-              {darkMode ? "☀️" : "🌙"}
-            </button>
           </div>
 
         </div>
